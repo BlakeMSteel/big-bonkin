@@ -1,11 +1,6 @@
 [gd_scene format=3 uid="uid://cixhcos1sbrmt"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g72tf"]
-blend_mode = 1
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_g72tf"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_g72tf"]
 
 [node name="EnemyAOE" type="Area2D" unique_id=894778421]
 scale = Vector2(5, 5)
@@ -13,10 +8,4 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=308813824]
-material = SubResource("CanvasItemMaterial_g72tf")
 shape = SubResource("CircleShape2D_g72tf")
-
-[node name="Timer" type="Timer" parent="." unique_id=577488582]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=422176080]
-sprite_frames = SubResource("SpriteFrames_g72tf")

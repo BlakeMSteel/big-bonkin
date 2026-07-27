@@ -30,8 +30,6 @@ func _on_mob_timer_timeout() -> void:
 
 	set_mob_start_position(mob)
 
-	#set_mob_destination(mob)
-
 	add_child(mob)
 
 
@@ -39,8 +37,3 @@ func set_mob_start_position(mob):
 	var mob_spawn_location = $MobPath/MobSpawnLocation
 	mob_spawn_location.progress_ratio = randf()
 	mob.position = mob_spawn_location.position
-
-#func set_mob_destination(mob):
-	#var mob_destination = $MobPath/MobSpawnLocation
-	#mob_destination.progress_ratio = randf()
-	#mob.target = mob_destination.position

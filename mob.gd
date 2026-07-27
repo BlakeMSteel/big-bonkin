@@ -3,10 +3,14 @@ extends RigidBody2D
 enum states { IDLE, TRAVEL, ATTACK, DIE }
 
 @export var speed = 100
+@export var attack_aoe: PackedScene
+
 var target = position
 var velocity
 var player: CharacterBody2D
 var state = states.IDLE
+var attack_dimensions = Vector2(15, 12)
+var current_attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +33,21 @@ func continue_travel():
 func attack():
 	linear_velocity = Vector2.ZERO
 	state = states.ATTACK
-	$AnimationHandler.set_animation("attack")
+	$AnimationHandler.set_animation("attack_windup")
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	die()
+
+func _on_attack_animation_finished() -> void:
+	var attack = attack_aoe.instantiate()
+	attack.set_scale(attack_dimensions)
+	add_child(attack)
+	current_attack = attack
+	$AnimationHandler.set_animation("post_attack")
+
+func _on_post_attack_animation_finished() -> void:
+	remove_child(current_attack)
+	state = states.TRAVEL
 
 func die():
 	if state != states.DIE:
@@ -40,9 +58,3 @@ func die():
 
 func _on_die_animation_finished() -> void:
 	queue_free()
-
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	die()
-
-func _on_attack_animation_finished() -> void:
-	die()

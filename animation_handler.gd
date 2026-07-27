@@ -6,6 +6,8 @@ extends Node2D
 @onready var jump_sprite: AnimatedSprite2D = $AnimatedJump
 @onready var walk_sprite: AnimatedSprite2D = $AnimatedWalk
 @onready var die_sprite: AnimatedSprite2D = $AnimatedDie
+@onready var attack_windup_sprite: AnimatedSprite2D = $PreAttack
+@onready var post_attack_sprite: AnimatedSprite2D = $PostAttack
 
 var sprites = {}
 var currentSprite: AnimatedSprite2D
@@ -20,7 +22,9 @@ func _ready() -> void:
 		"run": run_sprite,
 		"jump": jump_sprite,
 		"walk": walk_sprite,
-		"die": die_sprite
+		"die": die_sprite,
+		"attack_windup": attack_windup_sprite,
+		"post_attack": post_attack_sprite
 	}
 	currentSprite = idle_sprite
 	currentSprite.play()

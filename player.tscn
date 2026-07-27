@@ -4433,7 +4433,7 @@ script = ExtResource("1_sweqy")
 metadata/_edit_group_ = true
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=295348972]
-collision_mask = 2
+collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1656092913]
 shape = SubResource("CapsuleShape2D_sweqy")
@@ -4451,7 +4451,6 @@ sprite_frames = SubResource("SpriteFrames_8fc1w")
 animation = &"down_right"
 
 [node name="AnimatedIdle" type="AnimatedSprite2D" parent="AnimationHandler" unique_id=803933355]
-visible = false
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"up_right"
 
@@ -4470,6 +4469,7 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_iqa7t")
 animation = &"up_right"
 
+[connection signal="area_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_area_shape_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="animation_finished" from="AnimationHandler/AnimatedAttack" to="." method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="AnimationHandler/AnimatedDie" to="." method="_on_die_animation_finished"]

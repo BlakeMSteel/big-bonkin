@@ -30,9 +30,10 @@ func _physics_process(delta: float) -> void:
 	recieve_player_inputs(delta)
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	hit.emit()
-	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
-	die()
+	get_hurt()
+
+func _on_hurtbox_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	get_hurt()
 
 func idle() -> void:
 	charge_time = 0
@@ -73,11 +74,15 @@ func continue_travel() -> void:
 func start_attack() -> void:
 	state = states.ATTACK
 	$AnimationHandler.set_animation("attack")
-	pass
+
+func get_hurt() -> void:
+	hit.emit()
+	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+	die()
+	
 
 func _on_attack_animation_finished() -> void:
 	idle()
 
 func _on_die_animation_finished() -> void:
 	hide()
-	
