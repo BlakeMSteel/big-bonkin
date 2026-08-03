@@ -14,8 +14,7 @@ var current_attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	state = states.TRAVEL
-	$AnimationHandler.set_animation("walk")
+	start_travel()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -23,6 +22,10 @@ func _process(delta: float) -> void:
 		target = player.position
 		$AnimationHandler.set_facing(position, target)
 		continue_travel()
+
+func start_travel():
+	state = states.TRAVEL
+	$AnimationHandler.set_animation("walk")
 
 func continue_travel():
 	if position.distance_to(target) > 100:
@@ -47,7 +50,7 @@ func _on_attack_animation_finished() -> void:
 
 func _on_post_attack_animation_finished() -> void:
 	remove_child(current_attack)
-	state = states.TRAVEL
+	start_travel()
 
 func die():
 	if state != states.DIE:

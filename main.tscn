@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c1vdmhhj4edvl" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dgbybxjyp8te3" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c5af2ucqo0ljy" path="res://mob.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bur8nqp2svhtr" path="res://desert_map.tscn" id="3_1bvp3"]
 
 [sub_resource type="Curve2D" id="Curve2D_lquwl"]
 _data = {
@@ -13,6 +14,8 @@ point_count = 5
 [node name="Main" type="Node" unique_id=1448743964]
 script = ExtResource("1_h2yge")
 mob_scene = ExtResource("2_1bvp3")
+
+[node name="TileMapLayer" parent="." unique_id=982801509 instance=ExtResource("3_1bvp3")]
 
 [node name="Player" parent="." unique_id=1186959215 instance=ExtResource("1_ig7tw")]
 position = Vector2(-50, -50)
