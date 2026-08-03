@@ -11,8 +11,6 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1qmh0"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eqsov"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_p11y5"]
 atlas = ExtResource("2_ubaqv")
 region = Rect2(0, 256, 128, 128)
@@ -3648,10 +3646,8 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1395862332]
+scale = Vector2(1, 1.5)
 shape = SubResource("CapsuleShape2D_1qmh0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2059682217]
-shape = SubResource("CapsuleShape2D_eqsov")
 
 [node name="MobDetails" type="Node" parent="." unique_id=734888577]
 script = ExtResource("8_gfurk")

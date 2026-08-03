@@ -39,11 +39,11 @@ func attack():
 	$AnimationHandler.set_animation("attack_windup")
 
 func _on_attack_animation_finished() -> void:
-	var attack = attack_aoe.instantiate()
-	attack.set_scale(attack_dimensions)
-	attack.position = attack_position
-	add_child(attack)
-	current_attack = attack
+	var attack_instance = attack_aoe.instantiate()
+	attack_instance.set_scale(attack_dimensions)
+	attack_instance.position = attack_position
+	add_child(attack_instance)
+	current_attack = attack_instance
 	$AnimationHandler.set_animation("post_attack")
 
 func _on_post_attack_animation_finished() -> void:
@@ -54,7 +54,6 @@ func die():
 	if state != states.DIE:
 		state = states.DIE
 		linear_velocity = Vector2.ZERO
-		$CollisionShape2D.set_deferred("disabled", true)
 		$AnimationHandler.set_animation("die")
 
 func _on_die_animation_finished() -> void:

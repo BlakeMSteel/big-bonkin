@@ -3,13 +3,18 @@ extends CharacterBody2D
 signal hit
 
 @export var speed = 400
-var screen_size
+@export var attack_aoe: PackedScene
+
 var target
 
 enum states { IDLE, CHARGE, TRAVEL, ATTACK, DIE }
 var state = states.IDLE
 
 var charge_time = 0
+var base_attack_dimensions = Vector2(6.5, 4.55)
+var attack_position = Vector2(0,20)
+var attack_charge_size_multiplier = 2
+var current_attack
 
 func spawn(pos):
 	position = pos
@@ -20,7 +25,6 @@ func spawn(pos):
 func _ready() -> void:
 	idle()
 	target = Vector2(0,0)
-	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -53,12 +57,15 @@ func recieve_player_inputs(delta: float) -> void:
 		continue_travel()
 
 func charge_up_attack(delta: float) -> void:
+	$AttackPreview.visible = true
 	state = states.CHARGE
+	set_to_proper_size($AttackPreview)
 	$AnimationHandler.set_animation("idle")
-	target = get_global_mouse_position()
+	target = get_global_mouse_position() + Vector2(0,-20)
 	charge_time += delta
 	
 func start_travel() -> void:
+	$AttackPreview.visible = false
 	state = states.TRAVEL
 	$AnimationHandler.set_animation("run")
 	speed = 200 + charge_time * 100
@@ -70,10 +77,18 @@ func continue_travel() -> void:
 		move_and_slide()
 	else:
 		start_attack()
-		
+
+func set_to_proper_size(aoe) -> void:
+	aoe.set_scale(base_attack_dimensions * (charge_time * attack_charge_size_multiplier))
+	aoe.position = attack_position
+
 func start_attack() -> void:
 	state = states.ATTACK
 	$AnimationHandler.set_animation("attack")
+	var attack_instance = attack_aoe.instantiate()
+	set_to_proper_size(attack_instance)
+	add_child(attack_instance)
+	current_attack = attack_instance
 
 func get_hurt() -> void:
 	hit.emit()
@@ -82,6 +97,7 @@ func get_hurt() -> void:
 	
 
 func _on_attack_animation_finished() -> void:
+	remove_child(current_attack)
 	idle()
 
 func _on_die_animation_finished() -> void:

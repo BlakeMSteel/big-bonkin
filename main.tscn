@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dgbybxjyp8te3" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c5af2ucqo0ljy" path="res://mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bur8nqp2svhtr" path="res://desert_map.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cuchje8a6br8u" path="res://player_aoe_preview.tscn" id="5_lquwl"]
 
 [sub_resource type="Curve2D" id="Curve2D_lquwl"]
 _data = {
@@ -25,6 +26,9 @@ wait_time = 2.0
 
 [node name="StartPosition" type="Marker2D" parent="." unique_id=713412758]
 position = Vector2(240, 450)
+
+[node name="PlayerAOEPreview" parent="." unique_id=1919431653 instance=ExtResource("5_lquwl")]
+scale = Vector2(0.8333334, 0.83950615)
 
 [node name="MobPath" type="Path2D" parent="." unique_id=23714537]
 scale = Vector2(0.8333334, 0.83950615)

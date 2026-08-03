@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bktpwum8acq2n" path="res://art/knight_player/Run.png" id="4_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://dp56a111o74ua" path="res://player_aoe.tscn" id="8_b26j0"]
 [ext_resource type="Texture2D" uid="uid://bu6h0jipccsky" path="res://art/knight_player/Die.png" id="8_dw050"]
+[ext_resource type="Script" uid="uid://bq0v6gtxwnmo6" path="res://attack_preview.gd" id="9_b26j0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
 
@@ -4428,9 +4429,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dw050"]
+
 [node name="Player" type="CharacterBody2D" unique_id=1186959215]
 collision_mask = 0
 script = ExtResource("1_sweqy")
+attack_aoe = ExtResource("8_b26j0")
 metadata/_edit_group_ = true
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=295348972]
@@ -4470,7 +4474,14 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_iqa7t")
 animation = &"up_right"
 
-[node name="PlayerAOE" parent="." unique_id=226011837 instance=ExtResource("8_b26j0")]
+[node name="AttackPreview" type="Area2D" parent="." unique_id=1960210990]
+visible = false
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("9_b26j0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPreview" unique_id=633029319]
+shape = SubResource("CircleShape2D_dw050")
 
 [connection signal="area_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_area_shape_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
