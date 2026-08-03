@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dp56a111o74ua"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qj4cv"]
+
+[node name="PlayerAOE" type="Area2D" unique_id=226011837]
+scale = Vector2(30, 30)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1214555173]
+shape = SubResource("CircleShape2D_qj4cv")

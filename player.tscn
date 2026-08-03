@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://1mal0ol4fq06" path="res://animation_handler.tscn" id="3_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://bnuhmlw8ee2w2" path="res://art/knight_player/FrontFlip.png" id="3_sweqy"]
 [ext_resource type="Texture2D" uid="uid://bktpwum8acq2n" path="res://art/knight_player/Run.png" id="4_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://dp56a111o74ua" path="res://player_aoe.tscn" id="8_b26j0"]
 [ext_resource type="Texture2D" uid="uid://bu6h0jipccsky" path="res://art/knight_player/Die.png" id="8_dw050"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
@@ -4468,6 +4469,8 @@ animation = &"up_right"
 visible = false
 sprite_frames = SubResource("SpriteFrames_iqa7t")
 animation = &"up_right"
+
+[node name="PlayerAOE" parent="." unique_id=226011837 instance=ExtResource("8_b26j0")]
 
 [connection signal="area_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_area_shape_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

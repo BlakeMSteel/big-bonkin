@@ -35,6 +35,8 @@ left_mouse={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Player AOE"
 2d_physics/layer_4="Enemy AOE"
+2d_physics/layer_5="Player AOE Preview"
+2d_physics/layer_6="Enemy AOE Preview"
 
 [physics]
 

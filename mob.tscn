@@ -3633,9 +3633,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gfurk"]
+
 [node name="Mob" type="RigidBody2D" unique_id=43863447]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 4
 gravity_scale = 0.0
 script = ExtResource("1_1qmh0")
 attack_aoe = ExtResource("8_ieysi")
@@ -3680,7 +3682,14 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_gfurk")
 animation = &"up_right"
 
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[node name="AttackPreview" type="Area2D" parent="." unique_id=1410206679]
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPreview" unique_id=1933638226]
+shape = SubResource("CircleShape2D_gfurk")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimationHandler/PreAttack" to="." method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="AnimationHandler/AnimatedDie" to="." method="_on_die_animation_finished"]
 [connection signal="animation_finished" from="AnimationHandler/PostAttack" to="." method="_on_post_attack_animation_finished"]
+[connection signal="area_entered" from="AttackPreview" to="." method="_on_attack_preview_area_entered"]

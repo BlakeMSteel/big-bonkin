@@ -9,11 +9,14 @@ var target = position
 var velocity
 var player: CharacterBody2D
 var state = states.IDLE
-var attack_dimensions = Vector2(15, 12)
+var attack_dimensions = Vector2(6.5, 4.55)
+var attack_position = Vector2(0,20)
 var current_attack
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$AttackPreview.set_scale(attack_dimensions)
+	$AttackPreview.position = attack_position
 	start_travel()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,22 +31,17 @@ func start_travel():
 	$AnimationHandler.set_animation("walk")
 
 func continue_travel():
-	if position.distance_to(target) > 100:
-		linear_velocity = position.direction_to(target) * speed
-	else:
-		attack()
+	linear_velocity = position.direction_to(target) * speed
 
 func attack():
 	linear_velocity = Vector2.ZERO
 	state = states.ATTACK
 	$AnimationHandler.set_animation("attack_windup")
 
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	die()
-
 func _on_attack_animation_finished() -> void:
 	var attack = attack_aoe.instantiate()
 	attack.set_scale(attack_dimensions)
+	attack.position = attack_position
 	add_child(attack)
 	current_attack = attack
 	$AnimationHandler.set_animation("post_attack")
@@ -61,3 +59,10 @@ func die():
 
 func _on_die_animation_finished() -> void:
 	queue_free()
+
+func _on_attack_preview_area_entered(area: Area2D) -> void:
+	attack()
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	die()
