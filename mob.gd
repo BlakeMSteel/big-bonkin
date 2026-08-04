@@ -38,6 +38,10 @@ func attack():
 	state = states.ATTACK
 	$AnimationHandler.set_animation("attack_windup")
 
+func remove_attack():
+	if current_attack != null:
+		remove_child(current_attack)
+
 func _on_attack_animation_finished() -> void:
 	var attack_instance = attack_aoe.instantiate()
 	attack_instance.set_scale(attack_dimensions)
@@ -47,20 +51,23 @@ func _on_attack_animation_finished() -> void:
 	$AnimationHandler.set_animation("post_attack")
 
 func _on_post_attack_animation_finished() -> void:
-	remove_child(current_attack)
+	remove_attack()
 	start_travel()
 
 func die():
+	remove_attack()
 	if state != states.DIE:
 		state = states.DIE
 		linear_velocity = Vector2.ZERO
+		$Hurtbox.monitorable = false
 		$AnimationHandler.set_animation("die")
 
 func _on_die_animation_finished() -> void:
 	queue_free()
 
 func _on_attack_preview_area_entered(area: Area2D) -> void:
-	attack()
+	if state == states.TRAVEL:
+		attack()
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
